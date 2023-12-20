@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SearchForm from './Components/SearchForm';
 import FlightList from './Components/FlightList';
 
 const App = () => {
+  const [searchCriteria, setSearchCriteria] = useState({});
+
+  const handleSearch = (criteria) => {
+    setSearchCriteria(criteria);
+  };
+
   return (
     <div>
-      <SearchForm />
-      <FlightList />
+      <SearchForm onSearch={handleSearch} />
+      <FlightList searchCriteria={searchCriteria} />
     </div>
   );
 };

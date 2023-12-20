@@ -3,13 +3,12 @@ import { Form, Input, Checkbox, DatePicker, Row, Col } from 'antd';
 
 const { RangePicker } = DatePicker;
 
-const SearchForm = () => {
+const SearchForm = ({  onSearch }) => {
   const [form] = Form.useForm();
-  const [oneWay, setOneWay] = useState(false);
+  const [oneWay, setOneWay] = useState(true);
 
   const onFinish = (values) => {
-    console.log('Received values:', values);
-    // İstek kısmı burada yapılabilir
+    onSearch(values);
   };
 
   const handleCheckboxChange = (e) => {
@@ -23,9 +22,15 @@ const SearchForm = () => {
     }
   };
 
+  const onValuesChange = (changedValues, allValues) => {
+    // Tetiklenen her değişiklikte, ana uygulamadaki onSearch fonksiyonunu çağırarak uçuşları filtreleyin.
+    onSearch(allValues);
+  };
+  
+
   return (
     <div style={{ maxWidth: '60%', margin: 'auto' }}>
-      <Form form={form} onFinish={onFinish} layout="vertical">
+      <Form form={form} onValuesChange={onValuesChange} onFinish={onFinish} layout="vertical">
         <Row gutter={16}>
           <Col xs={24} sm={12}>
             <Form.Item label="Kalkış Havaalanı" name="departureAirport" rules={[{ required: true, message: 'Lütfen kalkış havaalanını girin.' }]}>
