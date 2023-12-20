@@ -33,37 +33,37 @@ const SearchForm = ({  onSearch }) => {
       <Form form={form} onValuesChange={onValuesChange} onFinish={onFinish} layout="vertical">
         <Row gutter={16}>
           <Col xs={24} sm={12}>
-            <Form.Item label="Kalkış Havaalanı" name="departureAirport" rules={[{ required: true, message: 'Lütfen kalkış havaalanını girin.' }]}>
+            <Form.Item label="Departure City" name="departureAirport" rules={[{ required: true, message: 'Lütfen kalkış havaalanını girin.' }]}>
               <Input />
             </Form.Item>
           </Col>
           <Col xs={24} sm={12}>
-            <Form.Item label="Varış Havaalanı" name="arrivalAirport" rules={[{ required: true, message: 'Lütfen varış havaalanını girin.' }]}>
+            <Form.Item label="Arrival City" name="arrivalAirport" rules={[{ required: true, message: 'Lütfen varış havaalanını girin.' }]}>
               <Input />
             </Form.Item>
           </Col>
         </Row>
         <Row>
           <Col span={24}>
-            <Form.Item label="Uçuş Tipi">
+            <Form.Item label="Flight Type">
               <Checkbox name="oneWay" checked={oneWay} onChange={handleCheckboxChange}>
-                Tek Yön
+              One Way
               </Checkbox>
               <Checkbox name="roundTrip" checked={!oneWay} onChange={() => setOneWay(!oneWay)}>
-                Gidiş-Dönüş
+              Round Trip
               </Checkbox>
             </Form.Item>
           </Col>
         </Row>
         <Row gutter={16}>
           <Col xs={24} sm={12}>
-            <Form.Item label="Gidiş Tarihi" name="departureDate" rules={[{ required: true, message: 'Lütfen gidiş tarihini girin.' }]}>
+            <Form.Item label="Departure Date" name="departureDate" rules={[{ required: true, message: 'Lütfen gidiş tarihini girin.' }]}>
               <DatePicker showTime={false} format="YYYY-MM-DD" />
             </Form.Item>
           </Col>
           {!oneWay && (
             <Col xs={24} sm={12}>
-              <Form.Item label="Dönüş Tarihi" name="returnDate" rules={[{ required: true, message: 'Lütfen dönüş tarihini girin.' }]}>
+              <Form.Item label="Return Date" name="returnDate" rules={[{ required: true, message: 'Lütfen dönüş tarihini girin.' }]}>
                 <DatePicker showTime={false} format="YYYY-MM-DD" />
               </Form.Item>
             </Col>
