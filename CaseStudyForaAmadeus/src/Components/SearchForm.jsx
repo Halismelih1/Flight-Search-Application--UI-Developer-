@@ -29,7 +29,7 @@ const SearchForm = ({  onSearch }) => {
   
 
   return (
-    <div style={{ maxWidth: '60%', margin: 'auto' }}>
+    <div style={{ maxWidth: '60%', margin: 'auto',border:"1px solid black",padding:"40px" }}>
       <Form form={form} onValuesChange={onValuesChange} onFinish={onFinish} layout="vertical">
         <Row gutter={16}>
           <Col xs={24} sm={12}>

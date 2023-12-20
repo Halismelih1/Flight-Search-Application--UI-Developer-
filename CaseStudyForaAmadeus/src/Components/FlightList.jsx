@@ -1,24 +1,38 @@
 // FlightList.jsx
 
-import React, { useState } from 'react';
-import { Table, Space, Button } from 'antd';
-import { DollarCircleOutlined, AimOutlined, ClockCircleOutlined, SyncOutlined } from '@ant-design/icons';
+import React, { useState, useEffect } from 'react';
+import { Table, Space, Spin } from 'antd';
+import { DollarCircleOutlined, AimOutlined, ClockCircleOutlined } from '@ant-design/icons';
 import flights from '../Data/db';
 
 const FlightList = ({ searchCriteria }) => {
+  const [loading, setLoading] = useState(true);
   const [sortedInfo, setSortedInfo] = useState({});
+  const [filteredFlights, setFilteredFlights] = useState([]);
 
-  // Uçuşları filtrele
-  const filteredFlights = flights.filter((flight) => {
-    if (
-      (searchCriteria.departureCity && flight.departureCity.toLowerCase().includes(searchCriteria.departureCity.toLowerCase())) ||
-      (searchCriteria.arrivalCity && flight.arrivalCity.toLowerCase().includes(searchCriteria.arrivalCity.toLowerCase())) ||
-      (searchCriteria.departureDate && flight.departureDate === searchCriteria.departureDate.format('YYYY-MM-DD'))
-    ) {
-      return true;
-    }
-    return false;
-  });
+  useEffect(() => {
+    // Simualation Api Fetching
+    const fetchData = () => {
+      setLoading(true);
+      setTimeout(() => {
+        const filteredData = flights.filter((flight) => {
+          if (
+            (searchCriteria.departureCity && flight.departureCity.toLowerCase().includes(searchCriteria.departureCity.toLowerCase())) ||
+            (searchCriteria.arrivalCity && flight.arrivalCity.toLowerCase().includes(searchCriteria.arrivalCity.toLowerCase())) ||
+            (searchCriteria.departureDate && flight.departureDate === searchCriteria.departureDate.format('YYYY-MM-DD'))
+          ) {
+            return true;
+          }
+          return false;
+        });
+
+        setFilteredFlights(filteredData);
+        setLoading(false);
+      }, 1000); 
+    };
+
+    fetchData();
+  }, [searchCriteria]);
 
   const columns = [
     {
@@ -99,7 +113,6 @@ const FlightList = ({ searchCriteria }) => {
   ];
 
   const calculateFlightDuration = (departureTime, arrivalTime) => {
-    // Uçuş süresini hesapla (örneğin, basit bir şekilde saat farkını alabilirsiniz)
     const depTime = new Date(`2023-01-01 ${departureTime}`);
     const arrTime = new Date(`2023-01-01 ${arrivalTime}`);
     const durationInMinutes = (arrTime - depTime) / (1000 * 60);
@@ -113,13 +126,23 @@ const FlightList = ({ searchCriteria }) => {
   return (
     <div>
       <h2>Uygun Uçuşlar</h2>
-      <Table
-        dataSource={filteredFlights}
-        columns={columns}
-        onChange={handleChange}
-      />
+      <Spin spinning={loading} tip="Yükleniyor...">
+        <Table
+          dataSource={filteredFlights}
+          columns={columns}
+          onChange={handleChange}
+        />
+      </Spin>
     </div>
   );
 };
 
 export default FlightList;
+
+
+
+
+
+
+
+
