@@ -89,7 +89,7 @@ const FlightList = ({ searchCriteria }) => {
     {
       title: 'Flight Duration',
       key: 'flightDuration',
-      render: (text, record) => (
+      render: (record) => (
         <Space>
           <ClockCircleOutlined />{calculateFlightDuration(record.departureTime, record.arrivalTime)}
         </Space>
@@ -115,7 +115,7 @@ const FlightList = ({ searchCriteria }) => {
     return durationInMinutes;
   };
 
-  const handleChange = (pagination, filters, sorter) => {
+  const handleChange = (sorter) => {
     setSortedInfo(sorter);
   };
 
@@ -135,11 +135,3 @@ const FlightList = ({ searchCriteria }) => {
 };
 
 export default FlightList;
-
-
-
-
-
-
-
-

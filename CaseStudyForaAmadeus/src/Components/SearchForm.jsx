@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Form, Input, Checkbox, DatePicker, Row, Col } from 'antd';
-import moment from 'moment';
 
 
 const { RangePicker } = DatePicker;
@@ -24,8 +23,7 @@ const SearchForm = ({  onSearch }) => {
     }
   };
 
-  const onValuesChange = (changedValues, allValues) => {
-    // Tetiklenen her değişiklikte, ana uygulamadaki onSearch fonksiyonunu çağırarak uçuşları filtreleyin.
+  const onValuesChange = (allValues) => {
     onSearch(allValues);
     
   };
