@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Input, Checkbox, DatePicker, Row, Col } from 'antd';
+import moment from 'moment';
+
 
 const { RangePicker } = DatePicker;
 
@@ -25,21 +27,22 @@ const SearchForm = ({  onSearch }) => {
   const onValuesChange = (changedValues, allValues) => {
     // Tetiklenen her değişiklikte, ana uygulamadaki onSearch fonksiyonunu çağırarak uçuşları filtreleyin.
     onSearch(allValues);
+    
   };
-  
+
 
   return (
-    <div style={{ maxWidth: '60%', margin: 'auto',border:"1px solid black",padding:"40px" }}>
+    <div style={{ maxWidth: '60%', margin: 'auto',padding:"40px" }}>
       <Form form={form} onValuesChange={onValuesChange} onFinish={onFinish} layout="vertical">
         <Row gutter={16}>
           <Col xs={24} sm={12}>
             <Form.Item label="Departure City" name="departureAirport" rules={[{ required: true, message: 'Lütfen kalkış havaalanını girin.' }]}>
-              <Input />
+              <Input placeholder='Istanbul' />
             </Form.Item>
           </Col>
           <Col xs={24} sm={12}>
             <Form.Item label="Arrival City" name="arrivalAirport" rules={[{ required: true, message: 'Lütfen varış havaalanını girin.' }]}>
-              <Input />
+              <Input placeholder='Paris' />
             </Form.Item>
           </Col>
         </Row>

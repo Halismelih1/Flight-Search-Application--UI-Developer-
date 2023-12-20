@@ -121,7 +121,7 @@ const FlightList = ({ searchCriteria }) => {
 
   return (
     <div>
-      <h2 style={{ color: '#1890ff', marginBottom: '20px',textAlign:"center" }}>Available Flights</h2>
+      <h2 style={{ color: 'green', marginBottom: '20px',textAlign:"center" }}>Available Flights List</h2>
       <Spin spinning={loading} tip="Yükleniyor...">
         <Table
           dataSource={filteredFlights}
