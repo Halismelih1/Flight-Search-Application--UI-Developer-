@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Table, Space, Spin } from 'antd';
-import { DollarCircleOutlined, AimOutlined, ClockCircleOutlined } from '@ant-design/icons';
+import { DollarCircleOutlined, ClockCircleOutlined } from '@ant-design/icons';
 import flights from '../Data/db';
 
 const FlightList = ({ searchCriteria }) => {
@@ -11,7 +11,7 @@ const FlightList = ({ searchCriteria }) => {
   const [filteredFlights, setFilteredFlights] = useState([]);
 
   useEffect(() => {
-    // Simualation Api Fetching
+    //  Api Fetching Simualation
     const fetchData = () => {
       setLoading(true);
       setTimeout(() => {
@@ -62,14 +62,14 @@ const FlightList = ({ searchCriteria }) => {
       title: 'Departure Date',
       dataIndex: 'departureDate',
       key: 'departureDate',
-      sorter: (a, b) => a.departureDate.localeCompare(b.departureDate),
+      sorter: (a, b) => new Date(a.departureDate) - new Date(b.departureDate),
       sortOrder: sortedInfo.columnKey === 'departureDate' && sortedInfo.order,
     },
     {
       title: 'Departure Time',
       dataIndex: 'departureTime',
       key: 'departureTime',
-      sorter: (a, b) => a.departureTime.localeCompare(b.departureTime),
+      sorter: (a, b) => new Date(`2023-01-01 ${a.departureTime}`) - new Date(`2023-01-01 ${b.departureTime}`),
       sortOrder: sortedInfo.columnKey === 'departureTime' && sortedInfo.order,
     },
     {
@@ -97,6 +97,7 @@ const FlightList = ({ searchCriteria }) => {
       sorter: (a, b) => calculateFlightDuration(a.departureTime, a.arrivalTime) - calculateFlightDuration(b.departureTime, b.arrivalTime),
       sortOrder: sortedInfo.columnKey === 'flightDuration' && sortedInfo.order,
     },
+    
     {
       title: 'Price',
       dataIndex: 'price',
@@ -115,9 +116,10 @@ const FlightList = ({ searchCriteria }) => {
     return durationInMinutes;
   };
 
-  const handleChange = (sorter) => {
+  const handleChange = (pagination, filters, sorter) => {
     setSortedInfo(sorter);
   };
+
 
   return (
     <div>
@@ -128,6 +130,7 @@ const FlightList = ({ searchCriteria }) => {
           columns={columns}
           onChange={handleChange}
           scroll={{ x: 'max-content' }}
+          rowKey="id"
         />
       </Spin>
     </div>
